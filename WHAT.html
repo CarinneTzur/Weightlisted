@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What - WEIGHTLISTED</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Montserrat:wght@900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow-x: hidden;
+        }
+
+        .site-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            font-size: 2.2rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .site-title.fade-in {
+            opacity: 1;
+        }
+
+        .title-underline {
+            width: 50%;
+            height: 1px;
+            background-color: #666;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .title-underline.fade-in {
+            opacity: 1;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease, opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            opacity: 0;
+        }
+
+        .back-link.fade-in {
+            opacity: 1;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .content-section {
+            padding: 6rem 2rem 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content-section.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .content-text {
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Fade-in effect for WEIGHTLISTED text and logo everywhere */
+        .fadein-weightlisted {
+            opacity: 0;
+            transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fadein-weightlisted.visible {
+            opacity: 1;
+        }
+
+        /* Page Transition Classes */
+        .page-exit-slide-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-exit-fade {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-enter-slide-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-enter-fade {
+            opacity: 0;
+            transform: translateY(30px) scale(1.05);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-list {
+            margin-top: 3rem;
+        }
+
+        /* Gradient border for service-item using border-image */
+        .service-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 1.5rem;
+            padding-bottom: 0rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border-image: linear-gradient(90deg, #00ff88, #00bfff, #ff6b9d) 1;
+        }
+
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .service-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 700px) {
+            .site-title {
+                font-size: 1.1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .content-text {
+                font-size: 1rem;
+            }
+
+            .back-link {
+                top: 15px;
+                left: 15px;
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← back</a>
+    <div class="site-title">WEIGHTLISTED</div>
+    <div class="title-underline"></div>
+    <div class="content-section">
+        <h1 class="page-title">What</h1>
+        <div class="content-text">
+            <p>We craft <span class="highlight">digital experiences</span> that transcend the ordinary. Our expertise
+                spans the full spectrum of web development, from concept to deployment.</p>
+
+            <p>At <span class="highlight fadein-weightlisted">WEIGHTLISTED</span>, we specialize in creating websites
+                that are not just
+                functional, but transformative. Every project we undertake becomes a canvas for innovation, where
+                technology meets artistry.</p>
+        </div>
+
+        <div class="service-list">
+            <div class="service-item">
+                <div class="service-title">Custom Web Development</div>
+                <div class="content-text">Bespoke solutions tailored to your unique vision, built with cutting-edge
+                    technologies and modern frameworks.</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-title">UI/UX Design</div>
+                <div class="content-text">Intuitive interfaces that captivate and engage, designed with the user
+                    experience at the forefront of every decision.</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-title">E-commerce Solutions</div>
+                <div class="content-text">Scalable online stores that convert visitors into customers, with seamless
+                    payment processing and inventory management.</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-title">Performance Optimization</div>
+                <div class="content-text">Lightning-fast loading times and optimal performance across all devices and
+                    platforms.</div>
+            </div>
+
+            <div class="service-item">
+                <div class="service-title">Maintenance & Support</div>
+                <div class="content-text">Ongoing care and updates to ensure your digital presence remains current and
+                    secure.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            // Fade in .site-title
+            setTimeout(function () {
+                document.querySelector('.site-title').classList.add('fade-in');
+            }, 200);
+
+            // Fade in title underline (slightly after title)
+            setTimeout(function () {
+                document.querySelector('.title-underline').classList.add('fade-in');
+            }, 400);
+
+            // Fade in back link
+            setTimeout(function () {
+                document.querySelector('.back-link').classList.add('fade-in');
+            }, 550);
+
+            // Fade in all .fadein-weightlisted spans
+            setTimeout(function () {
+                document.querySelectorAll('.fadein-weightlisted').forEach(function (el, idx) {
+                    setTimeout(() => el.classList.add('visible'), 300 + idx * 300);
+                });
+            }, 300);
+
+            // Fade in content
+            setTimeout(function () {
+                document.querySelector('.content-section').classList.add('loaded');
+            }, 600);
+
+            // Back button transition logic
+            const backLink = document.querySelector('.back-link');
+            const contentSection = document.querySelector('.content-section');
+
+            backLink.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent immediate navigation
+
+                // Remove fade in for site-title and weightlisted highlights
+                document.querySelector('.site-title').classList.remove('fade-in');
+                document.querySelector('.title-underline').classList.remove('fade-in');
+                document.querySelectorAll('.fadein-weightlisted').forEach(el => el.classList.remove('visible'));
+                document.querySelector('.back-link').classList.remove('fade-in');
+
+                // Apply exit transition
+                contentSection.classList.remove('loaded');
+                contentSection.classList.add('page-exit-slide-left');
+
+                // Navigate after transition completes
+                setTimeout(() => {
+                    window.location.href = 'index.html?from=what';
+                }, 600); // Match the CSS transition duration
+            });
+        });
+    </script>
+</body>
+
+</html>
