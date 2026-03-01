@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You - WEIGHTLISTED</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Montserrat:wght@900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow-x: hidden;
+        }
+
+        .site-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            font-size: 2.2rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .site-title.fade-in {
+            opacity: 1;
+        }
+
+        .title-underline {
+            width: 50%;
+            height: 1px;
+            background-color: #444;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .title-underline.fade-in {
+            opacity: 1;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(64, 64, 64, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(180, 180, 180, 0.15);
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease, opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            opacity: 0;
+        }
+
+        .back-link.fade-in {
+            opacity: 1;
+        }
+
+        .back-link:hover {
+            background: rgba(160, 160, 160, 0.13);
+            transform: scale(1.05);
+        }
+
+        .content-section {
+            padding: 6rem 2rem 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content-section.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .content-text {
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Fade-in effect for WEIGHTLISTED text and logo everywhere */
+        .fadein-weightlisted {
+            opacity: 0;
+            transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fadein-weightlisted.visible {
+            opacity: 1;
+        }
+
+        /* Page Transition Classes */
+        .page-exit-slide-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-exit-fade {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-enter-slide-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-enter-fade {
+            opacity: 0;
+            transform: translateY(30px) scale(1.05);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mission-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(150, 150, 150, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .mission-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* CARD GRID & CARD STYLE CHANGES (neutral/gray/no colorfulness) */
+        .values-list {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem 2rem;
+            align-items: stretch;
+        }
+
+        @media (max-width: 900px) {
+            .values-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .value-item {
+            background: rgba(255, 255, 255, 0.055);
+            border-radius: 22px 8px 22px 8px;
+            box-shadow: 0 7px 32px 0 rgba(64, 64, 64, 0.11), 0 2px 8px 0 rgba(60, 60, 60, 0.06);
+            border: 1.5px solid rgba(150, 150, 150, 0.08);
+
+            /* Visually pleasing, balanced padding */
+            padding: 2.25rem 2rem 2rem 2rem;
+            /* Increased padding */
+            margin-bottom: 0;
+            position: relative;
+            min-height: unset;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        /* Subtle left accent bar using grayscale */
+        .value-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 8px;
+            border-radius: 20px 0 0 8px;
+            background: linear-gradient(180deg, #444, #999 80%, #1a1a1a 100%);
+            opacity: 0.19;
+        }
+
+        .value-item:hover {
+            transform: translateY(-4px) scale(1.03) rotate(-0.5deg);
+            box-shadow: 0 14px 40px 0 rgba(80, 80, 80, 0.15), 0 4px 16px 0 rgba(80, 80, 80, 0.11);
+            border-color: rgba(255, 255, 255, 0.13);
+        }
+
+        .value-item:nth-child(odd) {
+            border-radius: 22px 8px 22px 8px;
+        }
+
+        .value-item:nth-child(even) {
+            border-radius: 8px 22px 8px 22px;
+        }
+
+        .value-title {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-item .content-text {
+            color: #ededed;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.07rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Icon effect: gray/white, minimalist */
+        .value-icon {
+            position: absolute;
+            top: 0.7rem;
+            right: 0.9rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #232323;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #e2e2e2;
+            box-shadow: 0 2px 15px 0 rgba(64, 64, 64, 0.12);
+            opacity: 0.77;
+            z-index: 2;
+        }
+
+        .value-item:hover .value-icon {
+            opacity: 0.98;
+        }
+
+        @media (max-width: 700px) {
+            .site-title {
+                font-size: 1.1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .content-text {
+                font-size: 1rem;
+            }
+
+            .back-link {
+                top: 15px;
+                left: 15px;
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+
+            .values-list {
+                gap: 2rem;
+            }
+
+            .value-item {
+                padding: 1.6rem 1.1rem 1.6rem 1.1rem;
+                /* Increased mobile padding */
+            }
+
+            .value-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+                top: 0.15rem;
+                right: 0.2rem;
+            }
+
+            .value-title {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← back</a>
+    <div class="site-title">WEIGHTLISTED</div>
+    <div class="title-underline"></div>
+    <div class="content-section">
+        <h1 class="page-title">You</h1>
+        <div class="content-text">
+            <p>We serve those who transform lives through strength, discipline, and dedication. Whether you're guiding
+                individuals toward their peak performance or building a community of athletes, your impact deserves a
+                <span class="highlight">digital presence</span> that matches your passion.</p>
+
+            <p>From the powerlifting platform to the basketball court, from one-on-one training sessions to full-scale
+                gym operations — we understand that every coach, trainer, and facility has a unique story to tell.</p>
+        </div>
+
+        <div class="mission-box">
+            <div class="mission-title">Who We Serve</div>
+            <div class="content-text">
+                We work with fitness professionals and athletic organizations who are committed to excellence and ready
+                to elevate their digital presence.
+            </div>
+        </div>
+
+        <div class="values-list">
+            <div class="value-item">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="value-icon" aria-hidden="true" style="margin-bottom: 0.7rem;">🏋️‍♂️</span>
+                    <div class="value-title" style="text-align: center;">Strength & Physique Coaches</div>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="value-icon" aria-hidden="true" style="margin-bottom: 0.7rem;">🤝</span>
+                    <div class="value-title" style="text-align: center;">Personal Trainers & Coaches</div>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="value-icon" aria-hidden="true" style="margin-bottom: 0.7rem;">🏀</span>
+                    <div class="value-title" style="text-align: center;">Athletic Coaches</div>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="value-icon" aria-hidden="true" style="margin-bottom: 0.7rem;">🏢</span>
+                    <div class="value-title" style="text-align: center;">Gyms & Training Facilities</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            // Fade in .site-title
+            setTimeout(function () {
+                document.querySelector('.site-title').classList.add('fade-in');
+            }, 200);
+
+            // Fade in title underline (slightly after title)
+            setTimeout(function () {
+                document.querySelector('.title-underline').classList.add('fade-in');
+            }, 400);
+
+            // Fade in back link
+            setTimeout(function () {
+                document.querySelector('.back-link').classList.add('fade-in');
+            }, 550);
+
+            // Fade in all .fadein-weightlisted spans
+            setTimeout(function () {
+                document.querySelectorAll('.fadein-weightlisted').forEach(function (el, idx) {
+                    setTimeout(() => el.classList.add('visible'), 300 + idx * 300);
+                });
+            }, 300);
+
+            // Fade in content
+            setTimeout(function () {
+                document.querySelector('.content-section').classList.add('loaded');
+            }, 600);
+
+            // Back button transition logic
+            const backLink = document.querySelector('.back-link');
+            const contentSection = document.querySelector('.content-section');
+
+            backLink.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent immediate navigation
+
+                // Remove fade in for site-title and weightlisted highlights
+                document.querySelector('.site-title').classList.remove('fade-in');
+                document.querySelector('.title-underline').classList.remove('fade-in');
+                document.querySelectorAll('.fadein-weightlisted').forEach(el => el.classList.remove('visible'));
+                document.querySelector('.back-link').classList.remove('fade-in');
+
+                // Apply exit transition
+                contentSection.classList.remove('loaded');
+                contentSection.classList.add('page-exit-slide-left');
+
+                // Navigate after transition completes
+                setTimeout(() => {
+                    window.location.href = 'index.html?from=you';
+                }, 600); // Match the CSS transition duration
+            });
+        });
+    </script>
+</body>
+
+</html>
