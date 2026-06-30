@@ -278,7 +278,7 @@
             height: 210px;
             position: relative;
             transform-style: preserve-3d;
-            /* animation: rotate 8s infinite linear; */
+            animation: rotate 8s infinite linear;
         }
 
         .laptop-back {
@@ -293,12 +293,17 @@
         .laptop-screen {
             width: 100%;
             height: 100%;
-            background: #1a1a1a;
-            border: 2px solid #333;
+            border: 3px solid transparent;
+            background:
+                linear-gradient(#1a1a1a, #1a1a1a) padding-box,
+                linear-gradient(110deg, #00ff88, #00bfff, #7d83e8, #ff6b9d) border-box;
             border-radius: 8px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 18px rgba(0, 191, 255, 0.24),
+                0 0 28px rgba(255, 107, 157, 0.14);
             transform-style: preserve-3d;
         }
 
@@ -480,7 +485,7 @@
             background-position: 0 0, 30px 0, 0 0, 20px 0, 0 0, 10px 0;
         }
 
-        /* @keyframes rotate {
+        @keyframes rotate {
             0% {
                 transform: rotateY(0deg);
             }
@@ -488,7 +493,13 @@
             100% {
                 transform: rotateY(360deg);
             }
-        } */
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .laptop {
+                animation: none;
+            }
+        }
 
         @media (max-width: 700px) {
             .location-section {
@@ -638,6 +649,128 @@
             }
         }
 
+        .map-product-section {
+            min-height: 480px;
+            padding: 5rem 2rem;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.28) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.28) 1px, transparent 1px),
+                #f0f0ec;
+            background-size: 42px 42px;
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #222;
+        }
+
+        .map-product-card {
+            width: min(100%, 1050px);
+            padding: 3.5rem;
+            background: rgba(255, 255, 255, 0.92);
+            border: 2px solid #111;
+            box-shadow: 14px 14px 0 #111;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .map-product-label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .map-product-title {
+            margin: 0 0 1.25rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: clamp(2.4rem, 6vw, 5.5rem);
+            font-weight: 900;
+            line-height: 0.88;
+            text-transform: uppercase;
+        }
+
+        .map-product-copy {
+            max-width: 620px;
+            margin: 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+
+        .map-product-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .map-pin {
+            width: 112px;
+            height: 112px;
+            border: 4px solid #111;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: grid;
+            place-items: center;
+            background: #fff;
+        }
+
+        .map-pin::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #111;
+        }
+
+        .map-product-link {
+            display: inline-block;
+            padding: 0.9rem 1.25rem;
+            border: 2px solid #111;
+            background: #111;
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .map-product-link:hover {
+            background: #fff;
+            color: #111;
+        }
+
+        @media (max-width: 700px) {
+            .map-product-section {
+                min-height: auto;
+                padding: 4rem 1.25rem;
+            }
+
+            .map-product-card {
+                padding: 2.25rem 1.5rem;
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                box-shadow: 8px 8px 0 #111;
+            }
+
+            .map-product-action {
+                align-items: flex-start;
+            }
+
+            .map-pin {
+                width: 82px;
+                height: 82px;
+            }
+        }
+
 
         .footer-section {
             background: #111;
@@ -783,13 +916,13 @@
 
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="hamburger-menu" id="hamburgerMenu">
-        <a href="who.html" class="menu-item">who</a>
-        <a href="what.html" class="menu-item">what</a>
-        <a href="why.html" class="menu-item">why</a>
-        <a href="you.html" class="menu-item">you</a>
+        <a href="WHO.html" class="menu-item">who</a>
+        <a href="WHAT.html" class="menu-item">what</a>
+        <a href="WHY.html" class="menu-item">why</a>
+        <a href="YOU.html" class="menu-item">you</a>
     </div>
     <div class="site-title">WEIGHTLISTED</div>
-    <div class="slogan">your vision, our code</div>
+    <div class="slogan">get online. get seen. get weightlisted.</div>
     <div class="scroll-container">
         <div class="black-white-photo"></div>
         <div class="transparent-photo"></div>
@@ -805,12 +938,8 @@
             <div class="location-bg-fade">
             </div>
             <div class="location-text">
-                <p>You focus on getting your team <span class="highlight">stronger</span>, while we handle the
-                    tech.<br><br>We
-                    design <span class="highlight">clean websites</span> tailored specifically for teams, showcasing
-                    your training philosophy, streamlining client sign-ups, and managing your <span
-                        class="highlight">team brand</span>. Grow your roster and elevate your brand with <span
-                        class="highlight"> no software headaches</span>.</p>
+                <p><span class="highlight">You do the work. We get you seen.</span><br><br>Affordable websites for
+                    businesses, coaches, creators, and independent professionals—without the tech headache.</p>
             </div>
         </div>
         <div class="laptop-mockup">
@@ -826,7 +955,7 @@
                                     <div class="mockup-hero-card-title">Clean</div>
                                 </div>
                                 <div class="mockup-hero-card">
-                                    <div class="mockup-hero-card-title">Coaching</div>
+                                    <div class="mockup-hero-card-title">Business</div>
                                 </div>
                                 <div class="mockup-hero-card">
                                     <div class="mockup-hero-card-title">Sites</div>
@@ -845,7 +974,7 @@
                                         <div class="mockup-hero-card-title">Clean</div>
                                     </div>
                                     <div class="mockup-hero-card">
-                                        <div class="mockup-hero-card-title">Coaching</div>
+                                        <div class="mockup-hero-card-title">Business</div>
                                     </div>
                                     <div class="mockup-hero-card">
                                         <div class="mockup-hero-card-title">Sites</div>
@@ -859,6 +988,22 @@
         </div>
     </div>
 
+    <section class="map-product-section" aria-labelledby="mapProductTitle">
+        <div class="map-product-card">
+            <div>
+                <div class="map-product-label">A product by Weightlisted</div>
+                <h2 class="map-product-title" id="mapProductTitle">Weightlisted<br>Map</h2>
+                <p class="map-product-copy">We believe good work deserves to be found. So we built a dedicated
+                    discovery platform that gives coaches a place online and helps people find the right coach.</p>
+            </div>
+            <div class="map-product-action">
+                <div class="map-pin" aria-hidden="true"></div>
+                <a class="map-product-link" href="https://weightlistedmap.vercel.app" target="_blank"
+                    rel="noopener noreferrer">Explore the map →</a>
+            </div>
+        </div>
+    </section>
+
     <div class="footer-section">
         <div class="contact-info">
             <h3>Contact Us</h3>
@@ -867,7 +1012,7 @@
             <p><a href="tel:4703659019" style="color:inherit;text-decoration:underline;">470-365-9019</a></p>
         </div>
         <div class="footer-tagline">
-            WEIGHTLISTED<br><span class="tagline">Your vision, our code</span>
+            WEIGHTLISTED<br><span class="tagline">Get online. Get seen.</span>
         </div>
     </div>
     <script>
