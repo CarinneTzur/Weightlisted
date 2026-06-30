@@ -1,0 +1,59 @@
+/* Banner Styles */
+.static-banner {
+width: 100vw;
+min-height: 52px;
+background: #181818;
+display: flex;
+align-items: center;
+justify-content: center;
+box-sizing: border-box;
+border-top: 1px solid rgba(255, 255, 255, 0.05);
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+margin: 0;
+position: relative;
+z-index: 10;
+opacity: 0.5;
+}
+
+.static-banner-text {
+font-family: 'Montserrat', Arial, sans-serif;
+font-weight: 900;
+color: #fff;
+font-size: 1.2rem;
+text-transform: uppercase;
+letter-spacing: 0.03em;
+display: flex;
+align-items: center;
+gap: 22px;
+}
+
+.static-banner-text .bullet {
+display: inline-block;
+font-size: 1.3em;
+line-height: 0.7;
+margin: 0 9px;
+opacity: 0.5;
+vertical-align: middle;
+/* slightly lighter for the bullets */
+}
+
+@media (max-width:700px) {
+.static-banner {
+min-height: 38px;
+}
+
+.static-banner-text {
+font-size: 1rem;
+gap: 12px;
+}
+
+.static-banner-text .bullet {
+font-size: 1.1em;
+margin: 0 5px;
+}
+}
+
+< !-- Static Banner (above location section) -->
+    <div class="static-banner"><span class="static-banner-text"><span>coaches</span><span class="bullet">&bull;
+            </span><span>personal trainers</span><span class="bullet">&bull;
+            </span><span>gym owners</span></span></div>
