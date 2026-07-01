@@ -25,13 +25,22 @@
         body {
             margin: 0;
             background: black;
+            width: 100%;
             max-width: 100%;
-            overflow-x: clip;
+            position: relative;
+            overflow-x: hidden;
         }
 
         html {
+            width: 100%;
             max-width: 100%;
-            overflow-x: clip;
+            overflow-x: hidden;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
         }
 
         .site-title {
@@ -187,7 +196,10 @@
             .slogan {
                 font-size: 0.9rem;
                 top: 4.5rem;
-                white-space: nowrap;
+                width: calc(100% - 100px);
+                max-width: 320px;
+                line-height: 1.35;
+                white-space: normal;
             }
         }
 
@@ -593,6 +605,7 @@
             border-left: 1px solid rgba(255, 255, 255, 0.1);
             opacity: 0;
             visibility: hidden;
+            box-sizing: border-box;
         }
 
         .hamburger-menu.open {
@@ -666,6 +679,113 @@
             .menu-item {
                 font-size: 1rem;
                 margin-bottom: 1.5rem;
+            }
+        }
+
+        .quick-answers-section {
+            padding: 5rem 2rem;
+            background: #161616;
+            color: #fff;
+        }
+
+        .quick-answers-inner {
+            width: min(100%, 1120px);
+            margin: 0 auto;
+        }
+
+        .quick-answers-kicker {
+            margin-bottom: 0.75rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .quick-answers-title {
+            margin: 0 0 2.5rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .quick-answers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .quick-answer {
+            min-height: 150px;
+            padding: 1.5rem;
+            border: 1px solid #3a3a3a;
+            background: #0d0d0d;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .quick-answer:hover {
+            border-color: #777;
+            transform: translateY(-3px);
+        }
+
+        .quick-answer-label {
+            margin-bottom: 1.25rem;
+            width: fit-content;
+            background: linear-gradient(90deg, #00ff88, #00bfff, #ff6b9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .quick-answer-value {
+            margin: 0;
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .quick-answer-detail {
+            margin: 0.7rem 0 0;
+            color: #bbb;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .quick-answer a {
+            color: #fff;
+            text-underline-offset: 4px;
+        }
+
+        @media (max-width: 850px) {
+            .quick-answers-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .quick-answers-section {
+                padding: 4rem 1.25rem;
+            }
+
+            .quick-answers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-answer {
+                min-height: auto;
             }
         }
 
@@ -1503,6 +1623,48 @@
         </div>
     </div>
 
+    <section class="quick-answers-section" aria-labelledby="quickAnswersTitle">
+        <div class="quick-answers-inner">
+            <div class="quick-answers-kicker">The quick version</div>
+            <h2 class="quick-answers-title" id="quickAnswersTitle">Weightlisted at a Glance</h2>
+            <div class="quick-answers-grid">
+                <article class="quick-answer">
+                    <div class="quick-answer-label">Who we help</div>
+                    <p class="quick-answer-value">Businesses, coaches, creators, and independent professionals.</p>
+                </article>
+                <article class="quick-answer">
+                    <div class="quick-answer-label">What we build</div>
+                    <p class="quick-answer-value">Custom websites built around your brand and goals.</p>
+                </article>
+                <article class="quick-answer">
+                    <div class="quick-answer-label">Typical price</div>
+                    <p class="quick-answer-value">Around $500.</p>
+                    <p class="quick-answer-detail">Adjusted only for exceptional project needs.</p>
+                </article>
+                <article class="quick-answer">
+                    <div class="quick-answer-label">Launch time</div>
+                    <p class="quick-answer-value">Usually 3 days to 2 weeks.</p>
+                    <p class="quick-answer-detail">Timing depends on scope, content, feedback, and revisions.</p>
+                </article>
+                <article class="quick-answer">
+                    <div class="quick-answer-label">Why trust us</div>
+                    <p class="quick-answer-value">Founder-led, custom, and built through direct communication.</p>
+                </article>
+                <article class="quick-answer">
+                    <div class="quick-answer-label">Where we work</div>
+                    <p class="quick-answer-value">Based in Georgia. Available remotely.</p>
+                </article>
+                <article class="quick-answer">
+                    <div class="quick-answer-label">Contact or book</div>
+                    <p class="quick-answer-value"><a href="#get-weightlisted" data-signup-trigger>Complete the Get
+                            Weightlisted form.</a></p>
+                    <p class="quick-answer-detail">Or email <a
+                            href="mailto:GETWEIGHTLISTED@GMAIL.COM">GETWEIGHTLISTED@GMAIL.COM</a>.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section class="map-product-section temporarily-blurred" aria-label="Weightlisted Map, coming soon">
         <div class="map-product-card" aria-hidden="true">
             <div>
@@ -1720,6 +1882,14 @@
             signupOpenButton.addEventListener('click', function () {
                 resetSignupDialog();
                 signupDialog.showModal();
+            });
+
+            document.querySelectorAll('[data-signup-trigger]').forEach(function (trigger) {
+                trigger.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    resetSignupDialog();
+                    signupDialog.showModal();
+                });
             });
 
             signupCloseButton.addEventListener('click', function () {
