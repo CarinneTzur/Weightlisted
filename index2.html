@@ -1,0 +1,325 @@
+/*
+WeightListed: Next.js App Scaffold (monochrome gym aesthetic, with mock data, core layout, and directory structure)
+
+This is the core layout + mock data setup, with the main feature page at / and a separate coach profile page. See README
+at project root for setup instructions.
+
+Directory/file structure:
+- app/
+- layout.tsx
+- page.tsx
+- coach/[slug]/page.tsx
+- components/
+- SidebarFilters.tsx
+- ResultsList.tsx
+- MapView.tsx
+- CoachDrawer.tsx
+- lib/
+- filtering.ts
+- mockData.ts
+- README.md
+- tailwind.config.js
+
+(Most file contents are stubs to help you copy into files.)
+
+--- app/layout.tsx ---
+*/
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+return (
+<html lang="en">
+
+<body className="bg-neutral-950 text-neutral-100 font-sans min-h-screen">
+    {children}
+</body>
+
+</html>
+);
+}
+
+/*
+--- app/page.tsx ---
+*/
+import SidebarFilters from '../components/SidebarFilters';
+import ResultsList from '../components/ResultsList';
+import MapView from '../components/MapView';
+import CoachDrawer from '../components/CoachDrawer';
+import { useState } from 'react';
+import mockCoaches from '../lib/mockData';
+
+export default function HomePage() {
+// Simplified state scaffolding for V1 (replace with Zustand if grows)
+const [selectedCoach, setSelectedCoach] = useState(null);
+const [filters, setFilters] = useState({});
+const [mapViewFilter, setMapViewFilter] = useState(false);
+const [mapBounds, setMapBounds] = useState(null);
+
+// Filtering logic: move to lib/filtering.ts in further steps
+const filteredCoaches = mockCoaches.filter(coach => !!coach.headshotUrl);
+
+return (
+<div className="flex h-screen">
+    {/* Sidebar (desktop) */}
+    <aside className="w-[360px] hidden md:flex flex-col bg-neutral-900 border-r border-neutral-800 z-20">
+        <SidebarFilters filters={filters} setFilters={setFilters} mapViewFilter={mapViewFilter}
+            setMapViewFilter={setMapViewFilter} />
+        <div className="flex-1 border-t border-neutral-800">
+            <ResultsList coaches={filteredCoaches} onSelect={setSelectedCoach} selectedCoach={selectedCoach} />
+        </div>
+    </aside>
+
+    {/* Map */}
+    <main className="flex-1 relative">
+        <MapView coaches={filteredCoaches} onSelect={setSelectedCoach} selectedCoach={selectedCoach}
+            mapViewFilter={mapViewFilter} onSetBounds={setMapBounds} />
+        {/* Mobile: Results/Filters sheet: Render as you integrate mobile UX */}
+    </main>
+
+    {/* Drawer (desktop) */}
+    {selectedCoach && (
+    <div
+        className="hidden md:block w-[360px] fixed right-0 top-0 h-full z-30 border-l border-neutral-800 bg-neutral-950">
+        <CoachDrawer coach={selectedCoach} onClose={()=> setSelectedCoach(null)} />
+    </div>
+    )}
+</div>
+);
+}
+
+/*
+--- app/coach/[slug]/page.tsx ---
+*/
+import mockCoaches from '../../../lib/mockData';
+
+export default function CoachProfilePage({ params }) {
+const coach = mockCoaches.find(c => c.slug === params.slug);
+if (!coach) return <div className="p-8">Coach not found.</div>;
+return (
+<div className="max-w-xl mx-auto p-8">
+    <img src={coach.headshotUrl} alt={coach.name} className="w-40 h-40 rounded-full object-cover mb-4 mx-auto" />
+    <h1 className="text-2xl font-bold mb-2 text-center">{coach.name}</h1>
+    <div className="text-center text-neutral-400 mb-4">{coach.city}, {coach.state}</div>
+    <div className="flex flex-wrap justify-center gap-2 mb-4">
+        {coach.specialties.map(tag => (
+        <span key={tag} className="px-2 py-1 bg-neutral-800 rounded text-sm">{tag}</span>
+        ))}
+    </div>
+    <div className="mb-4 text-center">{coach.coachingType.toUpperCase()} • Starting at <span
+            className="font-semibold">${coach.priceFrom}/mo</span></div>
+    <div className="prose prose-invert mx-auto mb-4">{coach.bio}</div>
+    <button
+        className="block w-full py-2 bg-neutral-800 rounded font-semibold text-neutral-100 hover:bg-neutral-700 cursor-pointer">
+        Contact Coach
+    </button>
+</div>
+);
+}
+
+/*
+--- components/SidebarFilters.tsx ---
+(Simple structure; expand as needed. "mapViewFilter" toggle included.)
+*/
+export default function SidebarFilters({ filters, setFilters, mapViewFilter, setMapViewFilter }) {
+return (
+<div className="p-4">
+    <form className="flex flex-col gap-4">
+        <input type="text" className="bg-neutral-800 text-neutral-100 rounded px-3 py-2" placeholder="Search by name"
+            value={filters.name || '' } onChange={e=> setFilters(f => ({ ...f, name: e.target.value }))}
+        />
+        {/* ...other filters */}
+        <label className="flex items-center gap-2">
+            <input type="checkbox" checked={mapViewFilter} onChange={e=> setMapViewFilter(e.target.checked)}
+            />
+            Only show coaches in map
+        </label>
+    </form>
+</div>
+);
+}
+
+/*
+--- components/ResultsList.tsx ---
+(Lists coaches. Clicking sets selected.)
+*/
+export default function ResultsList({ coaches, onSelect, selectedCoach }) {
+return (
+<div className="overflow-y-auto h-full p-2">
+    <div className="mb-2 text-sm text-neutral-400 pl-2">{coaches.length} coaches found</div>
+    {coaches.map(coach => (
+    <div key={coach.id} className={`flex items-center gap-3 px-3 py-2 rounded cursor-pointer mb-1
+        ${selectedCoach?.id===coach.id ? 'bg-neutral-800' : 'hover:bg-neutral-900' }`} onClick={()=> onSelect(coach)}
+        >
+        <img src={coach.headshotUrl} alt={coach.name} className="w-10 h-10 rounded-full object-cover bg-neutral-700" />
+        <div>
+            <div className="font-semibold">{coach.name}</div>
+            <div className="text-xs text-neutral-400">{coach.city}, {coach.state}</div>
+            <div className="text-xs text-neutral-500 flex gap-1 flex-wrap">
+                {coach.specialties.map(tag => <span key={tag}>{tag}</span>)}
+            </div>
+            <div className="text-xs mt-1 text-neutral-300">Starting at ${coach.priceFrom}/mo</div>
+        </div>
+    </div>
+    ))}
+</div>
+);
+}
+
+/*
+--- components/MapView.tsx ---
+(Minimal, no tokens. On real dev: use MapLibre GL JS, public tiles, clustering.)
+*/
+import { useEffect, useRef } from "react";
+// @ts-ignore
+import maplibregl from "maplibre-gl";
+// @ts-ignore
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+export default function MapView({ coaches, onSelect, selectedCoach, mapViewFilter, onSetBounds }) {
+const mapRef = useRef(null);
+const mapInstance = useRef(null);
+
+useEffect(() => {
+if (mapInstance.current) return;
+mapInstance.current = new maplibregl.Map({
+container: mapRef.current,
+style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json', // public, gray look
+center: [-96, 39],
+zoom: 3.5,
+minZoom: 2,
+maxZoom: 14,
+attributionControl: true,
+});
+
+// Handle marker logic, clustering, etc later
+}, []);
+
+useEffect(() => {
+// TODO: Remove previous markers, add coach markers/clusters
+// TODO: Call onSetBounds(map.getBounds()) on map moveend
+}, [coaches]);
+
+return (
+<div ref={mapRef} className="absolute inset-0" />
+);
+}
+
+/*
+--- components/CoachDrawer.tsx ---
+*/
+import Link from "next/link";
+
+export default function CoachDrawer({ coach, onClose }) {
+return (
+<aside className="h-full flex flex-col">
+    <button className="absolute right-4 top-4 text-neutral-500 hover:text-neutral-200" onClick={onClose}
+        aria-label="Close">×</button>
+    <img src={coach.headshotUrl} alt={coach.name} className="w-full h-48 object-cover bg-neutral-700" />
+    <div className="p-6 flex-1 flex flex-col">
+        <h2 className="text-2xl font-bold mb-1">{coach.name}</h2>
+        <div className="mb-2 text-neutral-400">{coach.city}, {coach.state}</div>
+        <div className="flex gap-2 flex-wrap mb-2">
+            {coach.specialties.map(tag => (
+            <span key={tag} className="bg-neutral-800 px-2 py-1 rounded text-xs">{tag}</span>
+            ))}
+        </div>
+        <div className="mb-2">{coach.coachingType.toUpperCase()} • From <span
+                className="font-bold">${coach.priceFrom}/mo</span></div>
+        <div className="mb-6 text-neutral-300 text-sm flex-1">{coach.bio}</div>
+        <button
+            className="w-full py-2 rounded bg-neutral-800 text-neutral-100 text-sm font-semibold hover:bg-neutral-700 mb-2">Contact
+            Coach</button>
+        <Link href={`/coach/${coach.slug}`}>
+        <button className="w-full py-2 rounded border border-neutral-700 text-neutral-200 text-sm">View profile</button>
+        </Link>
+    </div>
+</aside>
+);
+}
+
+/*
+--- lib/mockData.ts ---
+*/
+const specialtiesList = [
+"powerlifting", "bodybuilding", "olympic lifting", "general strength"
+];
+const cities = [
+{ city: "Denver", state: "CO", zipcode: "80202", lat: 39.753, lng: -104.996 },
+{ city: "Austin", state: "TX", zipcode: "73301", lat: 30.267, lng: -97.742 },
+{ city: "New York", state: "NY", zipcode: "10001", lat: 40.7128, lng: -74.006 },
+{ city: "Chicago", state: "IL", zipcode: "60601", lat: 41.885, lng: -87.622 },
+{ city: "Seattle", state: "WA", zipcode: "98101", lat: 47.609, lng: -122.333 },
+{ city: "Miami", state: "FL", zipcode: "33101", lat: 25.761, lng: -80.191 },
+{ city: "Phoenix", state: "AZ", zipcode: "85001", lat: 33.448, lng: -112.073 },
+{ city: "San Francisco", state: "CA", zipcode: "94102", lat: 37.779, lng: -122.419 },
+{ city: "Boston", state: "MA", zipcode: "02108", lat: 42.360, lng: -71.057 }
+];
+function randomSpecialties() {
+const shuffled = specialtiesList.sort(() => 0.5 - Math.random());
+return shuffled.slice(0, Math.floor(1 + Math.random() * 3));
+}
+function randomCoach(i) {
+const city = cities[i % cities.length];
+const types = ["online", "in_person", "hybrid"];
+return {
+id: String(i + 1),
+slug: `coach-${i + 1}`,
+name: `Coach ${String.fromCharCode(65 + (i % 26))}
+${["Carter","Reed","Brooks","Lee","Grant","Patel","Murphy","Schultz","Smith","Davis"][i%10]}`,
+headshotUrl: `https://randomuser.me/api/portraits/men/${(i%50)+1}.jpg`,
+lat: city.lat + (Math.random() - 0.5) * 0.8,
+lng: city.lng + (Math.random() - 0.5) * 0.8,
+city: city.city,
+state: city.state,
+zipcode: city.zipcode,
+specialties: randomSpecialties(),
+coachingType: types[i % 3],
+priceFrom: 75 + Math.floor(Math.random()*100),
+bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam faucibus aliquam commodo. Proin dictum.",
+};
+}
+const mockCoaches = Array.from({ length: 45 }, (_, i) => {
+// 1 in 10 doesn't get a headshot, for headshot filtering
+const coach = randomCoach(i);
+if (i % 10 === 0) coach.headshotUrl = null;
+return coach;
+}).filter(coach => !!coach.headshotUrl); // filter out those without a headshot
+
+export default mockCoaches;
+
+/*
+--- lib/filtering.ts ---
+*/
+import type { Coach } from './mockData';
+// Implement filtering helpers here, see README for spec.
+
+/*
+--- README.md ---
+*/
+# WeightListed
+
+Find and discover strength coaches via map, filters, and specialist search. Clean gym-aesthetic, no user auth required.
+
+## Running Locally
+
+1. **Install dependencies**
+`npm install`
+
+2. **Run the dev server**
+`npm run dev`
+
+3. **Map display**
+- Uses MapLibre GL JS (no API key needed).
+- If using Mapbox, set `NEXT_PUBLIC_MAPBOX_TOKEN` in .env.local (not required for default setup).
+
+4. **Project structure**
+- Components in `components/`
+- Mock data in `lib/mockData.ts`
+- Layout and filtering in `app/`
+- `/`: search, map, results, detail drawer
+- `/coach/[slug]`: profile page
+
+5. **Customizing mock data**
+- Edit `lib/mockData.ts` to add or modify coaches.
+
+---
+
+This scaffolds the full V1 prototype. Continue development in each file as needed.

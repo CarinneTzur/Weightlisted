@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEIGHTLISTED</title>
+    <meta name="description"
+        content="Affordable custom websites for businesses, coaches, creators, and independent professionals.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="WEIGHTLISTED">
+    <meta property="og:description" content="Get online. Get seen. Get weightlisted.">
+    <meta property="og:url" content="https://weightlisted.vercel.app/">
+    <meta property="og:image" content="https://weightlisted.vercel.app/weightlisted-social-preview.png">
+    <meta property="og:image:alt" content="WEIGHTLISTED. Get online. Get seen. Get weightlisted.">
+    <meta property="og:image:type" content="image/png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WEIGHTLISTED">
+    <meta name="twitter:description" content="Get online. Get seen. Get weightlisted.">
+    <meta name="twitter:image" content="https://weightlisted.vercel.app/weightlisted-social-preview.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Montserrat:wght@900&display=swap"
         rel="stylesheet">
@@ -174,7 +187,7 @@
 
         .location-section {
             position: relative;
-            padding: 3rem 2rem 2rem 2rem;
+            padding: 1.25rem 2rem 2rem;
             background: #222;
             overflow: hidden;
             opacity: 0;
@@ -192,8 +205,9 @@
 
         .location-title {
             font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 3vw, 3rem);
             font-weight: 900;
+            line-height: 1.05;
             color: #fff;
             margin-bottom: 2rem;
             z-index: 2;
@@ -755,6 +769,32 @@
             line-height: 1.7;
         }
 
+        .founder-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .founder-link {
+            padding: 0.75rem 1rem;
+            border: 1px solid #fff;
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .founder-link:hover,
+        .founder-link:focus-visible {
+            background: #fff;
+            color: #111;
+        }
+
         @media (max-width: 800px) {
             .founder-section {
                 padding: 4rem 1.25rem;
@@ -942,6 +982,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             .founder-section,
             .founder-photo-wrap,
             .founder-copy,
@@ -1118,7 +1159,7 @@
         <a href="YOU.html" class="menu-item">you</a>
     </div>
     <div class="site-title">WEIGHTLISTED</div>
-    <div class="slogan">get online. get seen. get weightlisted.</div>
+    <div class="slogan">get weightlisted so you can get online and be seen</div>
     <div class="scroll-container">
         <div class="black-white-photo"></div>
         <div class="transparent-photo"></div>
@@ -1135,7 +1176,7 @@
             </div>
             <div class="location-text">
                 <p><span class="highlight">You do the work. We get you seen.</span><br><br>Affordable websites for
-                    businesses, coaches, creators, and independent professionals—without the tech headache.</p>
+                    businesses, coaches, creators, and independent professionals, without the tech headache.</p>
             </div>
         </div>
         <div class="laptop-mockup">
@@ -1184,7 +1225,7 @@
         </div>
     </div>
 
-    <section class="map-product-section temporarily-blurred" aria-label="Weightlisted Map — coming soon">
+    <section class="map-product-section temporarily-blurred" aria-label="Weightlisted Map, coming soon">
         <div class="map-product-card" aria-hidden="true">
             <div>
                 <div class="map-product-label">A product by Weightlisted</div>
@@ -1213,8 +1254,14 @@
                 <p class="founder-role">Founder · Developer · Builder</p>
                 <p class="founder-statement">“Good work deserves a place to be seen.”</p>
                 <p class="founder-note">Carinne created Weightlisted to make an online presence feel possible for
-                    people building something real—without the cost, confusion, or pressure of doing it alone. She
+                    people building something real, without the cost, confusion, or pressure of doing it alone. She
                     combines strength, creativity, and code to turn ideas into places people can find.</p>
+                <div class="founder-links" aria-label="Carinne's links">
+                    <a class="founder-link" href="https://carinntz.com" target="_blank"
+                        rel="noopener noreferrer">Portfolio ↗</a>
+                    <a class="founder-link" href="https://www.linkedin.com/in/carinnetzurdecker" target="_blank"
+                        rel="noopener noreferrer">LinkedIn ↗</a>
+                </div>
             </div>
         </div>
     </section>
