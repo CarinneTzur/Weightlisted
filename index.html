@@ -653,15 +653,23 @@
             min-height: 480px;
             padding: 5rem 2rem;
             background:
-                linear-gradient(rgba(0, 0, 0, 0.28) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.28) 1px, transparent 1px),
-                #f0f0ec;
-            background-size: 42px 42px;
+                linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.34)),
+                url('weightlisted-map-background.png') center / cover no-repeat,
+                #111;
             color: #111;
             display: flex;
             align-items: center;
             justify-content: center;
             border-top: 1px solid #222;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .map-product-section.loaded {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .map-product-card {
@@ -674,6 +682,15 @@
             grid-template-columns: 1.2fr 0.8fr;
             gap: 3rem;
             align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .map-product-section.loaded .map-product-card {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .map-product-label {
@@ -707,6 +724,15 @@
             flex-direction: column;
             align-items: center;
             gap: 1.25rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .map-product-section.loaded .map-product-action {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .map-pin {
@@ -768,6 +794,16 @@
             .map-pin {
                 width: 82px;
                 height: 82px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .map-product-section,
+            .map-product-card,
+            .map-product-action {
+                opacity: 1;
+                transform: none;
+                transition: none;
             }
         }
 
@@ -1080,6 +1116,22 @@
             }, 400);
 
             document.querySelector('.location-section').classList.add('loaded');
+
+            const mapProductSection = document.querySelector('.map-product-section');
+            if ('IntersectionObserver' in window) {
+                const mapObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('loaded');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                mapObserver.observe(mapProductSection);
+            } else {
+                mapProductSection.classList.add('loaded');
+            }
 
             // Hamburger menu functionality
             const clickIcon = document.getElementById('clickIcon');
