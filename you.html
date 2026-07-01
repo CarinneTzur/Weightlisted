@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You - WEIGHTLISTED</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Montserrat:wght@900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Montserrat:wght@600;700;900&display=swap"
         rel="stylesheet">
     <style>
         body {
@@ -155,8 +155,8 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(150, 150, 150, 0.1);
             border-radius: 12px;
-            padding: 2rem;
-            margin: 3rem 0;
+            padding: 2rem 2rem 1.25rem;
+            margin: 3rem 0 1rem;
             text-align: center;
         }
 
@@ -172,7 +172,7 @@
 
         /* CARD GRID & CARD STYLE CHANGES (neutral/gray/no colorfulness) */
         .values-list {
-            margin-top: 3rem;
+            margin-top: 2rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.5rem 2rem;
@@ -200,7 +200,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             transition: box-shadow 0.3s, transform 0.3s;
         }
 
@@ -234,7 +234,7 @@
         .value-title {
             font-family: 'Montserrat', Arial, sans-serif;
             font-size: 1.15rem;
-            font-weight: 900;
+            font-weight: 700;
             color: #fff;
             margin-bottom: 0.35rem;
             text-transform: uppercase;
@@ -257,7 +257,7 @@
         /* Icon effect: gray/white, minimalist */
         .value-icon {
             position: absolute;
-            top: 0.7rem;
+            top: 50%;
             right: 0.9rem;
             width: 40px;
             height: 40px;
@@ -273,10 +273,75 @@
             box-shadow: 0 2px 15px 0 rgba(64, 64, 64, 0.12);
             opacity: 0.77;
             z-index: 2;
+            transform: translateY(-50%);
         }
 
         .value-item:hover .value-icon {
             opacity: 0.98;
+        }
+
+        .process-section {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .process-title {
+            margin: 0 0 1rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .process-intro {
+            max-width: 820px;
+            margin: 0 auto 2rem;
+            color: #ddd;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .process-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .process-step {
+            padding: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.24);
+        }
+
+        .process-step strong {
+            display: block;
+            margin-bottom: 0.65rem;
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .process-step p {
+            margin: 0;
+            color: #ccc;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 800px) {
+            .process-list {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 700px) {
@@ -312,17 +377,22 @@
                 width: 28px;
                 height: 28px;
                 font-size: 1rem;
-                top: 0.15rem;
+                top: 50%;
                 right: 0.2rem;
             }
 
             .value-title {
                 font-size: 1rem;
             }
+
+            .process-section {
+                padding: 1.75rem 1.2rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="navigation.css">
 </head>
+
 <body>
     <button class="global-menu-button" id="globalMenuButton" type="button" aria-label="Open navigation menu"
         aria-controls="globalMenuPanel" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -340,10 +410,10 @@
     <div class="content-section">
         <h1 class="page-title">You</h1>
         <div class="content-text">
-            <p>Growing a business, brand, practice, or community? Your work deserves a <span
-                    class="highlight">place online</span>.</p>
+            <p>Growing a business, brand, practice, or community? Your work deserves a <span class="highlight">place
+                    online</span>.</p>
 
-            <p>No design or coding experience needed. Bring the idea—we will shape the website.</p>
+            <p>No design or coding experience needed. Bring the idea, and we will shape the website.</p>
         </div>
 
         <div class="mission-box">
@@ -356,7 +426,7 @@
         <div class="values-list">
             <div class="value-item">
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <span class="value-icon" aria-hidden="true" style="margin-bottom: 0.7rem;">🏪</span>
+                    <span class="value-icon" aria-hidden="true" style="margin-bottom: 0.5rem;">🏪</span>
                     <div class="value-title" style="text-align: center;">Local Businesses</div>
                 </div>
             </div>
@@ -382,12 +452,33 @@
                 </div>
             </div>
         </div>
-        <div class="mission-box">
-            <div class="mission-title">Built by Weightlisted</div>
-            <div class="content-text"><a href="https://weightlistedmap.vercel.app" target="_blank"
-                    rel="noopener noreferrer" class="highlight">Weightlisted Map</a> is our coach-discovery platform—and
-                proof of what we believe: everyone deserves a place to be found online.</div>
-        </div>
+
+        <section class="process-section" aria-labelledby="processTitle">
+            <h2 class="process-title" id="processTitle">What Working Together Looks Like</h2>
+            <p class="process-intro">We work best with people who are excited about having a website and ready to
+                communicate throughout the process. Every site is shaped around your business, audience, and goals, so
+                your feedback and patience help us create something that truly fits.</p>
+            <div class="process-list">
+                <div class="process-step">
+                    <strong>Stay Communicative</strong>
+                    <p>Timely answers, content, and feedback help us make confident decisions and keep your project
+                        moving.</p>
+                </div>
+                <div class="process-step">
+                    <strong>Built for You</strong>
+                    <p>Your website is customized to your identity and needs. Thoughtful, original work takes
+                        collaboration and care.</p>
+                </div>
+                <div class="process-step">
+                    <strong>3 Days to 2 Weeks</strong>
+                    <p>Most sites are ready within this range, depending on scope, content readiness, revisions, and
+                        communication.</p>
+                </div>
+            </div>
+            <p class="process-intro" style="margin-top: 2rem; margin-bottom: 0;">The goal is not simply to put a site
+                online. It is to give your business a useful tool that builds trust, reaches more people, and supports
+                your growth.</p>
+        </section>
     </div>
 
     <script>

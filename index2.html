@@ -1,5 +1,5 @@
 /*
-WeightListed — Next.js App Scaffold (monochrome gym aesthetic, with mock data, core layout, and directory structure)
+WeightListed: Next.js App Scaffold (monochrome gym aesthetic, with mock data, core layout, and directory structure)
 
 This is the core layout + mock data setup, with the main feature page at / and a separate coach profile page. See README
 at project root for setup instructions.
@@ -53,7 +53,7 @@ const [filters, setFilters] = useState({});
 const [mapViewFilter, setMapViewFilter] = useState(false);
 const [mapBounds, setMapBounds] = useState(null);
 
-// Filtering logic – move to lib/filtering.ts in further steps
+// Filtering logic: move to lib/filtering.ts in further steps
 const filteredCoaches = mockCoaches.filter(coach => !!coach.headshotUrl);
 
 return (
@@ -116,7 +116,7 @@ return (
 
 /*
 --- components/SidebarFilters.tsx ---
-(Simple structure—expand as needed. "mapViewFilter" toggle included.)
+(Simple structure; expand as needed. "mapViewFilter" toggle included.)
 */
 export default function SidebarFilters({ filters, setFilters, mapViewFilter, setMapViewFilter }) {
 return (
@@ -314,8 +314,8 @@ Find and discover strength coaches via map, filters, and specialist search. Clea
 - Components in `components/`
 - Mock data in `lib/mockData.ts`
 - Layout and filtering in `app/`
-- `/` — search, map, results, detail drawer
-- `/coach/[slug]` — profile page
+- `/`: search, map, results, detail drawer
+- `/coach/[slug]`: profile page
 
 5. **Customizing mock data**
 - Edit `lib/mockData.ts` to add or modify coaches.
