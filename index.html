@@ -772,6 +772,7 @@
         }
 
         .map-product-section {
+            position: relative;
             min-height: 480px;
             padding: 5rem 2rem;
             background:
@@ -813,6 +814,27 @@
         .map-product-section.loaded .map-product-card {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .map-product-section.temporarily-blurred .map-product-card {
+            filter: blur(10px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .map-coming-soon {
+            position: absolute;
+            z-index: 4;
+            padding: 1rem 1.5rem;
+            border: 2px solid #fff;
+            background: rgba(0, 0, 0, 0.88);
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.22);
         }
 
         .map-product-label {
@@ -1162,8 +1184,8 @@
         </div>
     </div>
 
-    <section class="map-product-section" aria-labelledby="mapProductTitle">
-        <div class="map-product-card">
+    <section class="map-product-section temporarily-blurred" aria-label="Weightlisted Map — coming soon">
+        <div class="map-product-card" aria-hidden="true">
             <div>
                 <div class="map-product-label">A product by Weightlisted</div>
                 <h2 class="map-product-title" id="mapProductTitle">Weightlisted<br>Map</h2>
@@ -1176,6 +1198,7 @@
                     rel="noopener noreferrer">Explore the map →</a>
             </div>
         </div>
+        <div class="map-coming-soon" role="status">Weightlisted Map · Coming Soon</div>
     </section>
 
     <section class="founder-section" aria-labelledby="founderTitle">
