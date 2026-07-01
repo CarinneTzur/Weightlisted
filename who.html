@@ -173,9 +173,20 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="navigation.css">
 </head>
 
 <body>
+    <button class="global-menu-button" id="globalMenuButton" type="button" aria-label="Open navigation menu"
+        aria-controls="globalMenuPanel" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="global-menu-overlay" id="globalMenuOverlay"></div>
+    <nav class="global-menu-panel" id="globalMenuPanel" aria-label="Main navigation">
+        <a class="global-menu-link" href="index.html">home</a>
+        <a class="global-menu-link" href="WHO.html">who</a>
+        <a class="global-menu-link" href="WHAT.html">what</a>
+        <a class="global-menu-link" href="WHY.html">why</a>
+        <a class="global-menu-link" href="YOU.html">you</a>
+    </nav>
     <a href="index.html" class="back-link">← back</a>
     <div class="site-title">WEIGHTLISTED</div>
     <div class="title-underline"></div>
@@ -249,6 +260,7 @@
             });
         });
     </script>
+    <script src="navigation.js"></script>
 </body>
 
 

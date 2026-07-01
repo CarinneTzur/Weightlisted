@@ -886,10 +886,10 @@
         }
 
         .mockup-hero-card {
-            background: #444;
-            border: 1px solid #555;
+            background: #505050;
+            border: 1px solid #777;
             border-radius: 3px;
-            padding: 6px 4px;
+            padding: 8px 4px;
             text-align: center;
             flex: 1;
             margin: 0 2px;
@@ -897,11 +897,23 @@
 
         .mockup-hero-card-title {
             font-family: 'Roboto Mono', monospace;
-            font-size: 5px;
+            font-size: 8px;
             font-weight: 900;
             color: #fff;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.15px;
+            line-height: 1;
+            text-shadow: 0 1px 2px #000;
+        }
+
+        @media (max-width: 700px) {
+            .mockup-hero-card {
+                padding: 7px 2px;
+            }
+
+            .mockup-hero-card-title {
+                font-size: 7px;
+            }
         }
     </style>
 </head>
@@ -916,6 +928,7 @@
 
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="hamburger-menu" id="hamburgerMenu">
+        <a href="index.html" class="menu-item">home</a>
         <a href="WHO.html" class="menu-item">who</a>
         <a href="WHAT.html" class="menu-item">what</a>
         <a href="WHY.html" class="menu-item">why</a>
