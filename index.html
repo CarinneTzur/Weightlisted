@@ -995,6 +995,229 @@
             }
         }
 
+        .signup-section {
+            padding: 5rem 2rem;
+            background: #f3f3ef;
+            color: #111;
+            text-align: center;
+        }
+
+        .signup-kicker {
+            margin-bottom: 0.8rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .signup-title {
+            margin: 0 auto 1rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: clamp(2.6rem, 7vw, 6.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .signup-copy {
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .signup-open-button,
+        .signup-submit-button {
+            padding: 1rem 1.4rem;
+            border: 2px solid #111;
+            background: #111;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .signup-open-button:hover,
+        .signup-open-button:focus-visible,
+        .signup-submit-button:hover,
+        .signup-submit-button:focus-visible {
+            background: #fff;
+            color: #111;
+            transform: translateY(-2px);
+        }
+
+        .signup-dialog {
+            width: min(92vw, 720px);
+            max-height: 90vh;
+            padding: 0;
+            border: 2px solid #fff;
+            background: #111;
+            color: #fff;
+            box-shadow: 16px 16px 0 rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+        }
+
+        .signup-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(6px);
+        }
+
+        .signup-dialog[open] {
+            animation: signupExpand 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes signupExpand {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .signup-dialog-inner {
+            padding: 2.5rem;
+        }
+
+        .signup-dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .signup-dialog-title {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .signup-close-button {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #666;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .signup-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.1rem;
+        }
+
+        .signup-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .signup-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .signup-field label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .signup-field input,
+        .signup-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.9rem;
+            border: 1px solid #555;
+            border-radius: 0;
+            background: #1b1b1b;
+            color: #fff;
+            font: 1rem 'Roboto Mono', monospace;
+        }
+
+        .signup-field input:focus,
+        .signup-field textarea:focus {
+            border-color: #fff;
+            outline: 2px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .signup-field textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .signup-privacy {
+            grid-column: 1 / -1;
+            margin: 0;
+            color: #aaa;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .signup-agreement {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            border: 1px solid #444;
+            background: #181818;
+            cursor: pointer;
+        }
+
+        .signup-agreement input {
+            width: 18px;
+            height: 18px;
+            margin: 0.15rem 0 0;
+            accent-color: #fff;
+            flex: 0 0 auto;
+        }
+
+        .signup-agreement span {
+            color: #ddd;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 620px) {
+            .signup-section {
+                padding: 4rem 1.25rem;
+            }
+
+            .signup-dialog-inner {
+                padding: 1.5rem;
+            }
+
+            .signup-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signup-field.full-width,
+            .signup-privacy,
+            .signup-agreement {
+                grid-column: auto;
+            }
+        }
+
 
         .footer-section {
             background: #111;
@@ -1157,6 +1380,7 @@
         <a href="WHAT.html" class="menu-item">what</a>
         <a href="WHY.html" class="menu-item">why</a>
         <a href="YOU.html" class="menu-item">you</a>
+        <a href="#get-weightlisted" class="menu-item">get weightlisted</a>
     </div>
     <div class="site-title">WEIGHTLISTED</div>
     <div class="slogan">get weightlisted so you can get online and be seen</div>
@@ -1266,11 +1490,69 @@
         </div>
     </section>
 
+    <section class="signup-section" id="get-weightlisted" aria-labelledby="signupTitle">
+        <div class="signup-kicker">Ready when you are</div>
+        <h2 class="signup-title" id="signupTitle">Get Weightlisted</h2>
+        <p class="signup-copy">Tell us who you are and what you are building. No polished brief needed. We will read
+            your message and get back to you personally.</p>
+        <button class="signup-open-button" id="signupOpenButton" type="button">Start your website</button>
+    </section>
+
+    <dialog class="signup-dialog" id="signupDialog" aria-labelledby="signupDialogTitle">
+        <div class="signup-dialog-inner">
+            <div class="signup-dialog-header">
+                <h2 class="signup-dialog-title" id="signupDialogTitle">Tell Us About You</h2>
+                <button class="signup-close-button" id="signupCloseButton" type="button"
+                    aria-label="Close form">×</button>
+            </div>
+            <form class="signup-form-grid" action="https://formsubmit.co/GETWEIGHTLISTED@GMAIL.COM" method="POST">
+                <input type="hidden" name="_subject" value="New Get Weightlisted inquiry">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" style="display:none">
+
+                <div class="signup-field">
+                    <label for="firstName">First name</label>
+                    <input id="firstName" name="First name" type="text" autocomplete="given-name" required>
+                </div>
+                <div class="signup-field">
+                    <label for="lastName">Last name</label>
+                    <input id="lastName" name="Last name" type="text" autocomplete="family-name" required>
+                </div>
+                <div class="signup-field">
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" name="Email" type="email" autocomplete="email" required>
+                </div>
+                <div class="signup-field">
+                    <label for="businessName">Business name</label>
+                    <input id="businessName" name="Business name" type="text" autocomplete="organization" required>
+                </div>
+                <div class="signup-field full-width">
+                    <label for="projectMessage">What would you like us to know? <span
+                            style="font-weight:400;text-transform:none;">(optional)</span></label>
+                    <textarea id="projectMessage" name="Message"
+                        placeholder="Your idea, goals, current website, timeline, or anything else..."></textarea>
+                </div>
+                <p class="signup-privacy">Submitting this form sends your details to Weightlisted so we can respond to
+                    your inquiry.</p>
+                <label class="signup-agreement">
+                    <input name="Pricing acknowledgment" type="checkbox"
+                        value="I understand services are typically priced at $500" required>
+                    <span>I understand that Weightlisted services are typically priced at $500 and may be priced lower
+                        or higher only in exceptional circumstances.</span>
+                </label>
+                <div class="signup-field full-width">
+                    <button class="signup-submit-button" type="submit">Send inquiry</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
     <div class="footer-section">
         <div class="contact-info">
             <h3>Contact Us</h3>
             <p><a href="mailto:GETWEIGHTLISTED@GMAIL.COM"
-                    style="color:inherit;text-decoration:underline;">WEIGHTLISTED@GMAIL.COM</a></p>
+                    style="color:inherit;text-decoration:underline;">GETWEIGHTLISTED@GMAIL.COM</a></p>
             <p><a href="tel:4703659019" style="color:inherit;text-decoration:underline;">470-365-9019</a></p>
         </div>
         <div class="footer-tagline">
@@ -1348,6 +1630,24 @@
                 founderSection.classList.add('loaded');
                 mapProductSection.classList.add('loaded');
             }
+
+            const signupDialog = document.getElementById('signupDialog');
+            const signupOpenButton = document.getElementById('signupOpenButton');
+            const signupCloseButton = document.getElementById('signupCloseButton');
+
+            signupOpenButton.addEventListener('click', function () {
+                signupDialog.showModal();
+            });
+
+            signupCloseButton.addEventListener('click', function () {
+                signupDialog.close();
+            });
+
+            signupDialog.addEventListener('click', function (event) {
+                if (event.target === signupDialog) {
+                    signupDialog.close();
+                }
+            });
 
             // Hamburger menu functionality
             const clickIcon = document.getElementById('clickIcon');
