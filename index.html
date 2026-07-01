@@ -25,7 +25,13 @@
         body {
             margin: 0;
             background: black;
-            overflow-x: hidden;
+            max-width: 100%;
+            overflow-x: clip;
+        }
+
+        html {
+            max-width: 100%;
+            overflow-x: clip;
         }
 
         .site-title {
@@ -1090,7 +1096,7 @@
 
         .signup-dialog-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: flex-start;
             gap: 1rem;
             margin-bottom: 2rem;
@@ -1198,6 +1204,53 @@
             line-height: 1.55;
         }
 
+        .signup-form-message {
+            grid-column: 1 / -1;
+            min-height: 1.3rem;
+            margin: 0;
+            color: #ff9a9a;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.82rem;
+        }
+
+        .signup-success {
+            display: none;
+            padding: 2rem 0 1rem;
+            text-align: center;
+        }
+
+        .signup-success.visible {
+            display: block;
+        }
+
+        .signup-success-mark {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+        }
+
+        .signup-success h3 {
+            margin: 0 0 1rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .signup-success p {
+            max-width: 540px;
+            margin: 0 auto 1.75rem;
+            color: #ccc;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
         @media (max-width: 620px) {
             .signup-section {
                 padding: 4rem 1.25rem;
@@ -1213,7 +1266,8 @@
 
             .signup-field.full-width,
             .signup-privacy,
-            .signup-agreement {
+            .signup-agreement,
+            .signup-form-message {
                 grid-column: auto;
             }
         }
@@ -1498,14 +1552,14 @@
         <button class="signup-open-button" id="signupOpenButton" type="button">Start your website</button>
     </section>
 
-    <dialog class="signup-dialog" id="signupDialog" aria-labelledby="signupDialogTitle">
+    <dialog class="signup-dialog" id="signupDialog" aria-label="Get Weightlisted form">
         <div class="signup-dialog-inner">
             <div class="signup-dialog-header">
-                <h2 class="signup-dialog-title" id="signupDialogTitle">Tell Us About You</h2>
                 <button class="signup-close-button" id="signupCloseButton" type="button"
                     aria-label="Close form">×</button>
             </div>
-            <form class="signup-form-grid" action="https://formsubmit.co/GETWEIGHTLISTED@GMAIL.COM" method="POST">
+            <form class="signup-form-grid" id="signupForm"
+                action="https://formsubmit.co/ajax/GETWEIGHTLISTED@GMAIL.COM" method="POST">
                 <input type="hidden" name="_subject" value="New Get Weightlisted inquiry">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
@@ -1541,10 +1595,18 @@
                     <span>I understand that Weightlisted services are typically priced at $500 and may be priced lower
                         or higher only in exceptional circumstances.</span>
                 </label>
+                <p class="signup-form-message" id="signupFormMessage" role="alert"></p>
                 <div class="signup-field full-width">
                     <button class="signup-submit-button" type="submit">Send inquiry</button>
                 </div>
             </form>
+            <div class="signup-success" id="signupSuccess" role="status">
+                <div class="signup-success-mark" aria-hidden="true">✓</div>
+                <h3>Email Sent</h3>
+                <p>Thank you for signing up. Please keep an eye on your inbox and check your spam folder so you do not
+                    miss our response. We will contact you shortly.</p>
+                <button class="signup-submit-button" id="signupSuccessClose" type="button">Close</button>
+            </div>
         </div>
     </dialog>
 
@@ -1587,6 +1649,12 @@
 
         function animate() {
             if (!animationRunning) return;
+
+            if (window.innerWidth <= 700) {
+                scrollingText.style.transform = 'translateX(0) scaleY(1.1)';
+                requestAnimationFrame(animate);
+                return;
+            }
 
             pos += 0.7;
             if (pos > loopWidth) pos = 0;
@@ -1634,8 +1702,23 @@
             const signupDialog = document.getElementById('signupDialog');
             const signupOpenButton = document.getElementById('signupOpenButton');
             const signupCloseButton = document.getElementById('signupCloseButton');
+            const signupForm = document.getElementById('signupForm');
+            const signupSuccess = document.getElementById('signupSuccess');
+            const signupSuccessClose = document.getElementById('signupSuccessClose');
+            const signupFormMessage = document.getElementById('signupFormMessage');
+            const signupSubmitButton = signupForm.querySelector('.signup-submit-button');
+
+            function resetSignupDialog() {
+                signupForm.reset();
+                signupForm.style.display = '';
+                signupSuccess.classList.remove('visible');
+                signupFormMessage.textContent = '';
+                signupSubmitButton.disabled = false;
+                signupSubmitButton.textContent = 'Send inquiry';
+            }
 
             signupOpenButton.addEventListener('click', function () {
+                resetSignupDialog();
                 signupDialog.showModal();
             });
 
@@ -1646,6 +1729,36 @@
             signupDialog.addEventListener('click', function (event) {
                 if (event.target === signupDialog) {
                     signupDialog.close();
+                }
+            });
+
+            signupSuccessClose.addEventListener('click', function () {
+                signupDialog.close();
+            });
+
+            signupForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                signupFormMessage.textContent = '';
+                signupSubmitButton.disabled = true;
+                signupSubmitButton.textContent = 'Sending...';
+
+                try {
+                    const response = await fetch(signupForm.action, {
+                        method: 'POST',
+                        body: new FormData(signupForm),
+                        headers: { Accept: 'application/json' }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Submission failed');
+                    }
+
+                    signupForm.style.display = 'none';
+                    signupSuccess.classList.add('visible');
+                } catch (error) {
+                    signupFormMessage.textContent = 'Your message could not be sent. Please try again or email GETWEIGHTLISTED@GMAIL.COM.';
+                    signupSubmitButton.disabled = false;
+                    signupSubmitButton.textContent = 'Send inquiry';
                 }
             });
 
